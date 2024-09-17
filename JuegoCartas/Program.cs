@@ -67,8 +67,8 @@ namespace JuegoCartas
         {
             foreach (Palos palo in Enum.GetValues(typeof(Palos)))
             {
-                for (int j = 0; j < 12; j++)
-                    cartas.Add(new Carta(j + 1, palo));
+                for (int i = 1; i < 13; i++)
+                    cartas.Add(new Carta(i, palo));
             }
 
             baraja = new Baraja(cartas);

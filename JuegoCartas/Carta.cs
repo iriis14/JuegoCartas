@@ -8,9 +8,11 @@ namespace JuegoCartas
 {
     internal class Carta
     {
+        //atributos
         int num;
         Enum palo;
 
+        //constructores
         public Carta()
         {
 
@@ -22,6 +24,7 @@ namespace JuegoCartas
             this.palo = palo;
         }
 
+        //getters y setters
         public int Num { get { return num; } set { num = value; } }
         public Enum Palo { get { return palo; } set { palo = value; } }
 
