@@ -16,18 +16,10 @@ namespace JuegoCartas
         public static int numJugadores = 0;
         public static List<Jugador> listaJugadores = new List<Jugador>();
 
-        public enum Palos
-        {
-            Bastos,
-            Copas,
-            Oros,
-            Espadas
-        }
-
         static void Main(string[] args)
         {
             //crear la baraja
-            CrearBaraja();
+            baraja = baraja.CrearBaraja();
 
             //barajar la baraja
             barajaBarajada = baraja.Barajar();
@@ -53,20 +45,6 @@ namespace JuegoCartas
             Jugar();
 
             Console.ReadLine();
-        }
-
-        /// <summary>
-        /// Creamos la baraja española
-        /// </summary>
-        public static void CrearBaraja()
-        {
-            foreach (Palos palo in Enum.GetValues(typeof(Palos)))
-            {
-                for (int i = 1; i < 13; i++)
-                    cartas.Add(new Carta(i, palo));
-            }
-
-            baraja = new Baraja(cartas);
         }
 
         /// <summary>
@@ -100,7 +78,22 @@ namespace JuegoCartas
 
         public static void Jugar()
         {
+            //crear la lista de cartas que se van sacando
+            List<Carta> cartasSacadas = new List<Carta>();
+
+            //sacar la primera carta de cada jugador
+            foreach(Jugador j in listaJugadores)
+            {
+                Carta c = new Carta(j.ListaCartas[0].Num, j.ListaCartas[0].Palo);
+                j.ListaCartas.Remove(j.ListaCartas[0]);
+                cartasSacadas.Add(c);
+            }
+
+            //mirar la carta más alta
+            cartasSacadas.Max(carta => carta.Num);
+
             //TODO
+
         }
 
     }

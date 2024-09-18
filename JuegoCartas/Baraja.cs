@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static JuegoCartas.Carta;
 
 namespace JuegoCartas
 {
@@ -26,6 +27,25 @@ namespace JuegoCartas
         public List<Carta> Cartas { get { return cartas; } set { cartas = value; } }
 
         //métodos
+        /// <summary>
+        /// Crea una baraja con cartas
+        /// </summary>
+        /// <returns> La baraja llena </returns>
+        public Baraja CrearBaraja()
+        {
+            Baraja baraja = new Baraja();
+            List<Carta> cartas = new List<Carta>();
+
+            foreach (EPalos palo in Enum.GetValues(typeof(EPalos)))
+            {
+                for (int i = 1; i < 13; i++)
+                    cartas.Add(new Carta(i, palo));
+            }
+            baraja.Cartas = cartas;
+
+            return baraja;
+        }
+
         /// <summary>
         /// Roba una carta de la baraja
         /// </summary>

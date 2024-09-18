@@ -10,7 +10,15 @@ namespace JuegoCartas
     {
         //atributos
         int num;
-        Enum palo;
+        EPalos palo;
+
+        public enum EPalos
+        {
+            Bastos,
+            Copas,
+            Oros,
+            Espadas
+        }
 
         //constructores
         public Carta()
@@ -18,7 +26,7 @@ namespace JuegoCartas
 
         }
 
-        public Carta(int num, Enum palo)
+        public Carta(int num, EPalos palo)
         {
             this.num = num;
             this.palo = palo;
@@ -26,7 +34,7 @@ namespace JuegoCartas
 
         //getters y setters
         public int Num { get { return num; } set { num = value; } }
-        public Enum Palo { get { return palo; } set { palo = value; } }
+        public EPalos Palo { get { return palo; } set { palo = value; } }
 
     }
 
