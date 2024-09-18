@@ -28,6 +28,20 @@ namespace JuegoCartas
 
         //métodos
         /// <summary>
+        /// Devuelve un string con los atributos de la baraja
+        /// </summary>
+        /// <returns> Un string con los atributos de la baraja </returns>
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (Carta c in cartas)
+                sb.Append(c.ToString() + "\n");
+
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// Crea una baraja con cartas
         /// </summary>
         /// <returns> La baraja llena </returns>

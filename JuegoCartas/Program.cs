@@ -29,6 +29,8 @@ namespace JuegoCartas
             {
                 Console.WriteLine("Cuantos jugadores sois: ");
                 int num = Int32.Parse(Console.ReadLine());
+                Console.WriteLine();
+
                 if (num>1 && num<6)
                 {
                     numJugadores = num;
@@ -81,20 +83,58 @@ namespace JuegoCartas
             //crear la lista de cartas que se van sacando
             List<Carta> cartasSacadas = new List<Carta>();
 
-            //sacar la primera carta de cada jugador
-            foreach(Jugador j in listaJugadores)
+            do
             {
-                Carta c = new Carta(j.ListaCartas[0].Num, j.ListaCartas[0].Palo);
-                j.ListaCartas.Remove(j.ListaCartas[0]);
-                cartasSacadas.Add(c);
-            }
+                //sacar la primera carta de cada jugador
+                foreach (Jugador j in listaJugadores)
+                {
+                    Carta c = new Carta(j.ListaCartas[0].Num, j.ListaCartas[0].Palo);
+                    Console.WriteLine(j.Nombre + " ha sacado " + c.ToString());
+                    j.ListaCartas.Remove(j.ListaCartas[0]);
+                    cartasSacadas.Add(c);
+                }
 
-            //mirar la carta más alta
-            cartasSacadas.Max(carta => carta.Num);
+                //mirar la carta más alta y quien la ha tirado
+                int numJug = 0;
+                int max = cartasSacadas.Max(carta => carta.Num);
 
-            //TODO
+                for (int i = 0; i < cartasSacadas.Count; i++)
+                {
+                    if (cartasSacadas[i].Num == max)
+                    {
+                        numJug = i;
+                        break;
+                    }
+                }
 
+                //el ganador se lleva las cartas y se las guarda
+                foreach (Carta c in cartasSacadas)
+                    listaJugadores[numJug].ListaCartas.Add(c);
+
+                Console.WriteLine(listaJugadores[numJug].Nombre + " ha ganado esta ronda");
+
+                //limpiamos la lista ya que el jugador se las ha llevado
+                cartasSacadas.Clear();
+
+                //miramos si algún jugador ha perdido
+                for(int k = 0; k < listaJugadores.Count; k++)
+                {
+                    if (listaJugadores[k].ListaCartas.Count == 0)
+                    {
+                        Console.WriteLine("El " + listaJugadores[k].Nombre + " ha perdido :(");
+                        listaJugadores.Remove(listaJugadores[k]);
+                    }
+                }
+
+                //si en la lista de jugadores solo queda 1 jugador, és el ganador
+                if (listaJugadores.Count == 1)
+                {
+                    Console.WriteLine("El " + listaJugadores[0].Nombre + " ha ganado el juego!!");
+                    return;
+                }
+
+                Console.WriteLine();
+            } while (true);
         }
-
     }
 }
