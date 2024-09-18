@@ -90,7 +90,7 @@ namespace JuegoCartas
                 {
                     Carta c = new Carta(j.ListaCartas[0].Num, j.ListaCartas[0].Palo);
                     Console.WriteLine(j.Nombre + " ha sacado " + c.ToString());
-                    j.ListaCartas.Remove(j.ListaCartas[0]);
+                    j.ListaCartas.RemoveAt(0);
                     cartasSacadas.Add(c);
                 }
 
@@ -122,7 +122,7 @@ namespace JuegoCartas
                     if (listaJugadores[k].ListaCartas.Count == 0)
                     {
                         Console.WriteLine("El " + listaJugadores[k].Nombre + " ha perdido :(");
-                        listaJugadores.Remove(listaJugadores[k]);
+                        listaJugadores.RemoveAt(k);
                     }
                 }
 

@@ -67,7 +67,7 @@ namespace JuegoCartas
         public Carta RobarCarta()
         {
             Carta c = new Carta(cartas[0].Num, cartas[0].Palo);
-            cartas.Remove(cartas[0]);
+            cartas.RemoveAt(0);
 
             return c;
         }
@@ -93,7 +93,7 @@ namespace JuegoCartas
             Random r = new Random();
             int num = r.Next(Cartas.Count);
             Carta c = new Carta(cartas[num].Num, cartas[num].Palo);
-            cartas.Remove(cartas[num]);
+            cartas.RemoveAt(num);
 
             return c;
         }
@@ -105,7 +105,7 @@ namespace JuegoCartas
         public Carta RobarEnN(int posicion)
         {
             Carta c = new Carta(cartas[posicion].Num, cartas[posicion].Palo);
-            cartas.Remove(cartas[posicion]);
+            cartas.RemoveAt(posicion);
 
             return c;
         }
