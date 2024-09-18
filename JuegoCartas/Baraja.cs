@@ -32,7 +32,10 @@ namespace JuegoCartas
         /// <returns> La carta robada </returns>
         public Carta RobarCarta()
         {
-            return Cartas[0];
+            Carta c = new Carta(cartas[0].Num, cartas[0].Palo);
+            cartas.Remove(cartas[0]);
+
+            return c;
         }
 
         /// <summary>
@@ -43,6 +46,7 @@ namespace JuegoCartas
             Random r = new Random();
             List<Carta> cartasBarajadas = Cartas.OrderBy(_ => r.Next()).ToList();
             Baraja barajaBarajada = new Baraja(cartasBarajadas);
+
             return barajaBarajada;
         }
 
@@ -54,7 +58,10 @@ namespace JuegoCartas
         {
             Random r = new Random();
             int num = r.Next(Cartas.Count);
-            return Cartas[num];
+            Carta c = new Carta(cartas[num].Num, cartas[num].Palo);
+            cartas.Remove(cartas[num]);
+
+            return c;
         }
 
         /// <summary>
@@ -63,7 +70,10 @@ namespace JuegoCartas
         /// <returns> La carta robada </returns>
         public Carta RobarEnN(int posicion)
         {
-            return Cartas[posicion];
+            Carta c = new Carta(cartas[posicion].Num, cartas[posicion].Palo);
+            cartas.Remove(cartas[posicion]);
+
+            return c;
         }
 
     }

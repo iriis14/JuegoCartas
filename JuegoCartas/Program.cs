@@ -13,6 +13,8 @@ namespace JuegoCartas
         public static Baraja baraja = new Baraja();
         public static Baraja barajaBarajada = new Baraja();
         public static List<Carta> cartas = new List<Carta>();
+        public static int numJugadores = 0;
+        public static List<Jugador> listaJugadores = new List<Jugador>();
 
         public enum Palos
         {
@@ -24,38 +26,31 @@ namespace JuegoCartas
 
         static void Main(string[] args)
         {
-            //primero creamos la baraja
+            //crear la baraja
             CrearBaraja();
-            Console.WriteLine("BARAJA");
-            for(int i = 0; i < cartas.Count; i++)
-                Console.WriteLine("Num: " + cartas[i].Num + " Palo: " + cartas[i].Palo);
-            Console.WriteLine();
 
-            //robamos la primera carta
-            Carta cartaRobada = baraja.RobarCarta();
-            Console.WriteLine("PRIMERA CARTA ROBADA");
-            Console.WriteLine("Num: " + cartaRobada.Num + " Palo: " + cartaRobada.Palo);
-            Console.WriteLine();
-
-            //barajamos la baraja
+            //barajar la baraja
             barajaBarajada = baraja.Barajar();
-            Console.WriteLine("BARAJA BARAJADA");
-            for (int i = 0; i < barajaBarajada.Cartas.Count; i++)
-                Console.WriteLine("Num: " + barajaBarajada.Cartas[i].Num + " Palo: " + barajaBarajada.Cartas[i].Palo);
-            Console.WriteLine();
 
-            //robamos una cara al azar de la baraja
-            Carta cartaRobadaAzar = baraja.RobarAzar();
-            Console.WriteLine("CARTA AL AZAR");
-            Console.WriteLine("Num: " + cartaRobadaAzar.Num + " Palo: " + cartaRobadaAzar.Palo);
-            Console.WriteLine();
+            //preguntar número de jugadores
+            do
+            {
+                Console.WriteLine("Cuantos jugadores sois: ");
+                int num = Int32.Parse(Console.ReadLine());
+                if (num>1 && num<6)
+                {
+                    numJugadores = num;
+                    break;
+                }
+                else
+                    Console.WriteLine("El número de jugadores debe estar entre 2-5!!");
+            } while (true);
 
-            //robamos una carta en una posición N
-            Console.WriteLine("CARTA EN N");
-            int n = 3;
-            Carta cartaRobadaN = baraja.RobarEnN(n);
-            Console.WriteLine("N = " + n);
-            Console.WriteLine("Num: " + cartaRobadaN.Num + " Palo: " + cartaRobadaN.Palo);
+            //repartir las cartas a los jugadores
+            RepartirCartas(numJugadores);
+
+            //iniciamos el juego
+            Jugar();
 
             Console.ReadLine();
         }
@@ -73,5 +68,40 @@ namespace JuegoCartas
 
             baraja = new Baraja(cartas);
         }
+
+        /// <summary>
+        /// Reparte todas las cartas de la baraja a los jugadores
+        /// </summary>
+        /// <param name="numeroJugadores"> El número de jugadores </param>
+        public static void RepartirCartas(int numeroJugadores)
+        {
+            //crear los jugadores
+            for(int i = 0; i < numeroJugadores; i++)
+                listaJugadores.Add(new Jugador("Jugador" + (i+1)));
+
+            //repartir las cartas
+            int cartasPorJugador = (barajaBarajada.Cartas.Count()) / numeroJugadores;
+
+            foreach(Jugador j in listaJugadores)
+            {
+                List<Carta> listaJugador = new List<Carta>(cartasPorJugador);
+
+                //las añadimos a la lista de cada jugador
+                for (int i = 0; i < cartasPorJugador; i++)
+                    listaJugador.Add(barajaBarajada.Cartas[i]);
+
+                //las quitamos de la baraja inicial
+                for(int z = 0; z < cartasPorJugador; z++)
+                    barajaBarajada.Cartas.Remove(listaJugador[z]);
+
+                j.ListaCartas = listaJugador;
+            }
+        }
+
+        public static void Jugar()
+        {
+            //TODO
+        }
+
     }
 }
